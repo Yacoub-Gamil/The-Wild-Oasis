@@ -2,28 +2,28 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Spinner from "../../ui/Spinner";
-import useUpdateSettings from "./useUpdateSettings";
-import useSettings from "./useSettings";
+import { useSettings } from "./useSettings";
+import { useUpdateSetting } from "./useUpdateSetting";
 
 function UpdateSettingsForm() {
   const {
+    isLoading,
     settings: {
-      breakfastPrice,
+      minBookingLength,
       maxBookingLength,
       maxGuestsPerBooking,
-      minBookingLength,
+      breakfastPrice,
     } = {},
-    isLoading,
   } = useSettings();
-
-  const { isUpdateSettings, updateSettings } = useUpdateSettings();
+  const { isUpdating, updateSetting } = useUpdateSetting();
 
   if (isLoading) return <Spinner />;
 
   function handleUpdate(e, field) {
     const { value } = e.target;
+
     if (!value) return;
-    updateSettings({ [field]: value });
+    updateSetting({ [field]: value });
   }
 
   return (
@@ -33,7 +33,7 @@ function UpdateSettingsForm() {
           type="number"
           id="min-nights"
           defaultValue={minBookingLength}
-          disabled={isUpdateSettings}
+          disabled={isUpdating}
           onBlur={(e) => handleUpdate(e, "minBookingLength")}
         />
       </FormRow>
@@ -43,7 +43,7 @@ function UpdateSettingsForm() {
           type="number"
           id="max-nights"
           defaultValue={maxBookingLength}
-          disabled={isUpdateSettings}
+          disabled={isUpdating}
           onBlur={(e) => handleUpdate(e, "maxBookingLength")}
         />
       </FormRow>
@@ -53,7 +53,7 @@ function UpdateSettingsForm() {
           type="number"
           id="max-guests"
           defaultValue={maxGuestsPerBooking}
-          disabled={isUpdateSettings}
+          disabled={isUpdating}
           onBlur={(e) => handleUpdate(e, "maxGuestsPerBooking")}
         />
       </FormRow>
@@ -63,7 +63,7 @@ function UpdateSettingsForm() {
           type="number"
           id="breakfast-price"
           defaultValue={breakfastPrice}
-          disabled={isUpdateSettings}
+          disabled={isUpdating}
           onBlur={(e) => handleUpdate(e, "breakfastPrice")}
         />
       </FormRow>
