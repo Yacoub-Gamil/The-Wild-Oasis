@@ -31,7 +31,7 @@ function UpdateUserDataForm() {
       {
         onSuccess: () => {
           setAvatar(null);
-          e.target.rest();
+          e.target.reset();
         },
       }
     );
