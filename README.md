@@ -1,2 +1,2 @@
-#The-Wild-Oasis
-## React + Vite 
+# The-Wild-Oasis
+ React + Vite + supbase + react-query
