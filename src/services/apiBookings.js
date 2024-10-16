@@ -55,12 +55,10 @@ export async function getBookingsAfterDate(date) {
     .select("created_at, totalPrice, extrasPrice")
     .gte("created_at", date)
     .lte("created_at", getToday({ end: true }));
-
   if (error) {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
-
   return data;
 }
 
@@ -68,11 +66,9 @@ export async function getBookingsAfterDate(date) {
 export async function getStaysAfterDate(date) {
   const { data, error } = await supabase
     .from("bookings")
-    // .select('*')
     .select("*, guests(fullName)")
     .gte("startDate", date)
     .lte("startDate", getToday());
-
   if (error) {
     console.error(error);
     throw new Error("Bookings could not get loaded");
@@ -99,6 +95,7 @@ export async function getStaysTodayActivity() {
     console.error(error);
     throw new Error("Bookings could not get loaded");
   }
+
   return data;
 }
 
